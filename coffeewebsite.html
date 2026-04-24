@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The World of Coffee — A Connoisseur's Guide</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #1a0a00;
+    --dark-roast: #2d1500;
+    --medium-roast: #4a2500;
+    --cream: #f5e6c8;
+    --latte: #d4a96a;
+    --gold: #c8963e;
+    --light-cream: #fdf6ec;
+    --white: #fff9f0;
+    --smoke: rgba(255,255,255,0.06);
+    --text-muted: #8a6a40;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--espresso);
+    color: var(--cream);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: default;
+  }
+
+  /* ─── GRAIN OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  /* ─── HERO ─── */
+  header {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    overflow: hidden;
+    padding: 4rem 2rem;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 30%, #3d1a00 0%, transparent 70%),
+      radial-gradient(ellipse 60% 80% at 80% 80%, #2a1000 0%, transparent 60%),
+      radial-gradient(ellipse 40% 40% at 20% 60%, #3d2200 0%, transparent 50%),
+      var(--espresso);
+    z-index: 0;
+  }
+
+  .hero-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(200,150,62,0.15);
+    animation: pulseRing 8s ease-in-out infinite;
+  }
+  .hero-circle:nth-child(1) { width: 300px; height: 300px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 0s; }
+  .hero-circle:nth-child(2) { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 1s; }
+  .hero-circle:nth-child(3) { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 2s; }
+  .hero-circle:nth-child(4) { width: 900px; height: 900px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation-delay: 3s; }
+
+  @keyframes pulseRing {
+    0%, 100% { opacity: 0.3; transform: translate(-50%,-50%) scale(1); }
+    50% { opacity: 0.1; transform: translate(-50%,-50%) scale(1.03); }
+  }
+
+  .hero-content { position: relative; z-index: 2; }
+
+  .hero-eyebrow {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.3s;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3.5rem, 8vw, 7rem);
+    font-weight: 900;
+    line-height: 0.95;
+    color: var(--cream);
+    margin-bottom: 0.2em;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--latte);
+    display: block;
+  }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+    font-weight: 300;
+    font-style: italic;
+    color: rgba(212,169,106,0.7);
+    margin-top: 1.5rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.7s;
+  }
+
+  .hero-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 2.5rem auto;
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 0.9s;
+  }
+
+  .hero-scroll {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    opacity: 0;
+    animation: fadeUp 1s ease forwards 1.2s;
+  }
+
+  .scroll-arrow {
+    display: block;
+    margin: 0.8rem auto 0;
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(180deg, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── NAV STRIP ─── */
+  .nav-strip {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26,10,0,0.92);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(200,150,62,0.15);
+    padding: 1rem 3rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--latte);
+    letter-spacing: 0.05em;
+  }
+
+  .nav-logo span { color: var(--gold); }
+
+  .nav-tagline {
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  /* ─── SECTION INTRO ─── */
+  .section-intro {
+    text-align: center;
+    padding: 6rem 2rem 3rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 1rem;
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.2;
+  }
+
+  .section-title em { font-style: italic; color: var(--latte); }
+
+  .section-body {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: rgba(212,169,106,0.65);
+    margin-top: 1.2rem;
+  }
+
+  /* ─── COFFEE GRID ─── */
+  .coffee-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    padding: 0 2px 2px;
+    max-width: 1400px;
+    margin: 0 auto 6rem;
+  }
+
+  .coffee-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    cursor: pointer;
+    background: var(--dark-roast);
+  }
+
+  .coffee-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: inherit;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    z-index: 1;
+  }
+
+  .card-bg {
+    position: absolute;
+    inset: 0;
+    transition: transform 0.7s cubic-bezier(0.25,0.46,0.45,0.94);
+    z-index: 0;
+  }
+
+  .coffee-card:hover .card-bg { transform: scale(1.08); }
+
+  .card-gradient {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      to top,
+      rgba(10,4,0,0.97) 0%,
+      rgba(10,4,0,0.7) 40%,
+      rgba(10,4,0,0.2) 70%,
+      transparent 100%
+    );
+    transition: background 0.5s ease;
+  }
+
+  .coffee-card:hover .card-gradient {
+    background: linear-gradient(
+      to top,
+      rgba(10,4,0,0.99) 0%,
+      rgba(10,4,0,0.75) 45%,
+      rgba(10,4,0,0.3) 75%,
+      rgba(10,4,0,0.05) 100%
+    );
+  }
+
+  .card-content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 1.8rem;
+    z-index: 3;
+    transform: translateY(8px);
+    transition: transform 0.5s ease;
+  }
+
+  .coffee-card:hover .card-content { transform: translateY(0); }
+
+  .card-origin {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--cream);
+    line-height: 1.1;
+    margin-bottom: 0.5rem;
+  }
+
+  .card-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.95rem;
+    font-style: italic;
+    color: rgba(212,169,106,0.7);
+    margin-bottom: 1.2rem;
+  }
+
+  .card-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .meta-pill {
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.8rem;
+    border: 1px solid rgba(200,150,62,0.3);
+    border-radius: 100px;
+    color: var(--latte);
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease 0.1s, transform 0.4s ease 0.1s;
+  }
+
+  .coffee-card:hover .card-cta { opacity: 1; transform: translateY(0); }
+
+  .cta-line {
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+
+  .coffee-card:hover .cta-line { width: 40px; }
+
+  /* ─── COFFEE VISUAL (CSS art) ─── */
+  .coffee-visual {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+
+  .bean-pattern {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    opacity: 0.07;
+  }
+
+  /* ─── MODAL ─── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(10,4,0,0);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    pointer-events: none;
+    transition: background 0.5s ease;
+  }
+
+  .modal-overlay.open {
+    background: rgba(10,4,0,0.92);
+    pointer-events: all;
+  }
+
+  .modal {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background: var(--dark-roast);
+    border: 1px solid rgba(200,150,62,0.2);
+    transform: translateY(60px) scale(0.95);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.34,1.56,0.64,1), opacity 0.4s ease;
+    scrollbar-width: thin;
+    scrollbar-color: var(--gold) transparent;
+  }
+
+  .modal-overlay.open .modal {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  .modal-hero {
+    position: relative;
+    height: 320px;
+    overflow: hidden;
+  }
+
+  .modal-hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 30%, var(--dark-roast) 100%);
+    z-index: 2;
+  }
+
+  .modal-hero-bg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    background: rgba(26,10,0,0.8);
+    border: 1px solid rgba(200,150,62,0.3);
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background 0.3s;
+    color: var(--cream);
+    font-size: 1.2rem;
+    line-height: 1;
+  }
+
+  .modal-close:hover { background: rgba(200,150,62,0.2); }
+
+  .modal-body {
+    padding: 2.5rem 3rem 3rem;
+  }
+
+  .modal-header {
+    margin-bottom: 2rem;
+  }
+
+  .modal-origin {
+    font-size: 0.65rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 900;
+    color: var(--cream);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+
+  .modal-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-style: italic;
+    color: rgba(212,169,106,0.7);
+  }
+
+  .modal-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    margin: 1.8rem 0;
+  }
+
+  .modal-specs {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1px;
+    background: rgba(200,150,62,0.1);
+    margin-bottom: 2.5rem;
+    border: 1px solid rgba(200,150,62,0.1);
+  }
+
+  .spec-item {
+    background: var(--dark-roast);
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+  }
+
+  .spec-label {
+    font-size: 0.55rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .spec-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--latte);
+  }
+
+  .modal-section {
+    margin-bottom: 2rem;
+  }
+
+  .modal-section-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 0.8rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(200,150,62,0.15);
+  }
+
+  .modal-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    line-height: 1.9;
+    color: rgba(212,169,106,0.8);
+  }
+
+  .flavor-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 0.5rem;
+  }
+
+  .flavor-tag {
+    padding: 0.4rem 1rem;
+    border: 1px solid rgba(200,150,62,0.25);
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--latte);
+    border-radius: 100px;
+    background: rgba(200,150,62,0.05);
+  }
+
+  .brew-methods {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+  }
+
+  .brew-method {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: rgba(212,169,106,0.7);
+  }
+
+  .brew-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+  }
+
+  .roast-bar {
+    margin-top: 0.8rem;
+  }
+
+  .roast-track {
+    height: 4px;
+    background: rgba(200,150,62,0.15);
+    border-radius: 2px;
+    position: relative;
+    margin-top: 0.5rem;
+  }
+
+  .roast-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    border-radius: 2px;
+    background: linear-gradient(90deg, var(--latte), var(--gold));
+    transition: width 1s cubic-bezier(0.34,1.56,0.64,1);
+  }
+
+  .roast-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.55rem;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    text-transform: uppercase;
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    border-top: 1px solid rgba(200,150,62,0.1);
+    padding: 4rem 3rem;
+    text-align: center;
+    background: var(--espresso);
+  }
+
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 900;
+    color: var(--latte);
+    margin-bottom: 1rem;
+  }
+
+  .footer-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--text-muted);
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--espresso); }
+  ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 2px; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-strip { padding: 1rem 1.5rem; }
+    .coffee-grid { grid-template-columns: 1fr 1fr; }
+    .modal-body { padding: 1.5rem 1.5rem 2rem; }
+    .modal-specs { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 480px) {
+    .coffee-grid { grid-template-columns: 1fr; }
+    .modal-hero { height: 220px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header>
+  <div class="hero-bg"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-circle"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">A Connoisseur's Atlas</p>
+    <h1 class="hero-title">The World<em>of Coffee</em></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-sub">From ancient Ethiopian highlands to the volcanic slopes of Java — discover the world's most treasured coffee varieties.</p>
+    <div style="height:3rem"></div>
+    <p class="hero-scroll">Explore Below</p>
+    <span class="scroll-arrow"></span>
+  </div>
+</header>
+
+<!-- NAV STRIP -->
+<nav class="nav-strip">
+  <div class="nav-logo">☕ The Coffee <span>Atlas</span></div>
+  <div class="nav-tagline">12 Varieties · Origins · Tasting Notes</div>
+</nav>
+
+<!-- GRID INTRO -->
+<div class="section-intro">
+  <p class="section-label">World Varieties</p>
+  <h2 class="section-title">Rare & Celebrated<em>Origins</em></h2>
+  <p class="section-body">Each cup tells a story of geography, climate, and centuries of cultivation. Click any variety to uncover its full history.</p>
+</div>
+
+<!-- COFFEE GRID -->
+<div class="coffee-grid" id="coffeeGrid"></div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-hero" id="modalHero">
+      <div class="modal-hero-gradient"></div>
+    </div>
+    <button class="modal-close" onclick="closeModalDirect()">✕</button>
+    <div class="modal-body">
+      <div class="modal-header">
+        <p class="modal-origin" id="modalOrigin"></p>
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <p class="modal-subtitle" id="modalSubtitle"></p>
+      </div>
+      <div class="modal-divider"></div>
+      <div class="modal-specs" id="modalSpecs"></div>
+      <div class="modal-section">
+        <p class="modal-section-label">The Story</p>
+        <p class="modal-text" id="modalStory"></p>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-label">Tasting Notes</p>
+        <div class="flavor-tags" id="modalFlavors"></div>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-label">Roast Profile</p>
+        <div class="roast-bar">
+          <div class="roast-track"><div class="roast-fill" id="roastFill"></div></div>
+          <div class="roast-labels"><span>Light</span><span>Medium</span><span>Dark</span></div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-label">Brewing Methods</p>
+        <div class="brew-methods" id="modalBrew"></div>
+      </div>
+      <div class="modal-section">
+        <p class="modal-section-label">Cultivation & Processing</p>
+        <p class="modal-text" id="modalProcess"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">☕</div>
+  <p class="footer-text">"Coffee is the common man's gold, and like gold, it brings to every person the feeling of luxury and nobility." — Sheik-Abd-al-Kadir</p>
+</footer>
+
+<script>
+const coffees = [
+  {
+    id: 1,
+    name: "Ethiopian Yirgacheffe",
+    subtitle: "The Birthplace Cup",
+    origin: "Yirgacheffe, Ethiopia",
+    region: "East Africa",
+    altitude: "1,700–2,200m",
+    process: "Washed / Natural",
+    roast: "Light",
+    roastPct: 25,
+    harvest: "October – December",
+    gradient: "linear-gradient(135deg, #3d1f00 0%, #6b3a1f 40%, #2d1200 100%)",
+    accent: "#c87941",
+    flavors: ["Jasmine", "Bergamot", "Blueberry", "Lemon Zest", "Dark Chocolate", "Stone Fruit"],
+    brew: ["Pour Over", "AeroPress", "Cold Brew", "French Press"],
+    story: "Yirgacheffe sits in the cradle of coffee civilization — the Kaffa region of southern Ethiopia, where Coffea arabica first grew wild. Legend tells of the goat herder Kaldi who noticed his flock dancing with unusual energy after nibbling red berries in the highlands, setting off humanity's most beloved ritual. Today, the Gedeo Zone produces some of the world's most complex coffees, grown under the shade of indigenous trees by small-holder farmers using centuries-old techniques. The rich volcanic soil, high altitude, and abundant rainfall create conditions impossible to replicate anywhere on earth. These coffees are celebrated for their extraordinary floral complexity — a heritage of biodiversity unmatched in the coffee world.",
+    processing: "Most Yirgacheffe is washed (wet-processed), where the cherry's fruit is removed before fermentation and drying on raised African beds. Natural processing, where the whole cherry dries in the sun, produces fruitier, wine-like profiles. Farmers typically pick only ripe red cherries by hand, ensuring quality at the source."
+  },
+  {
+    id: 2,
+    name: "Colombian Supremo",
+    subtitle: "The Andean Classic",
+    origin: "Huila & Nariño, Colombia",
+    region: "South America",
+    altitude: "1,200–2,000m",
+    process: "Washed",
+    roast: "Medium",
+    roastPct: 50,
+    harvest: "March – June, Oct – Dec",
+    gradient: "linear-gradient(135deg, #1a3d1a 0%, #2d5a2d 40%, #0d2600 100%)",
+    accent: "#5a9e3a",
+    flavors: ["Red Apple", "Caramel", "Milk Chocolate", "Hazelnut", "Brown Sugar"],
+    brew: ["Drip", "Espresso", "French Press", "Moka Pot"],
+    story: "Colombia's towering Andes mountain range creates a patchwork of microclimates — from the misty, rain-swept valleys of Huila to the frigid volcanic highlands of Nariño. Coffee arrived via Jesuit missionaries in the 18th century and transformed into the nation's cultural backbone. 'Supremo' refers to the largest screen size (17/18) of Colombia's bean grading system — an indicator of optimal growing conditions producing large, dense beans. The Federation Nacional de Cafeteros, founded in 1927, created one of the world's most sophisticated quality-control systems, protecting Colombian coffee's global reputation for reliable, crowd-pleasing excellence.",
+    processing: "Colombia's steep terrain has made washed processing the standard — cherry pulp is removed mechanically, then the beans ferment in tanks for 24–48 hours before being washed clean and dried on patios or raised beds. This accentuates the bean's clean, sweet character while preserving its bright acidity."
+  },
+  {
+    id: 3,
+    name: "Jamaican Blue Mountain",
+    subtitle: "The Crown Jewel",
+    origin: "Blue Mountains, Jamaica",
+    region: "Caribbean",
+    altitude: "1,500–2,250m",
+    process: "Washed",
+    roast: "Medium-Light",
+    roastPct: 35,
+    harvest: "August – March",
+    gradient: "linear-gradient(135deg, #001a3d 0%, #002d5a 40%, #000d26 100%)",
+    accent: "#3a70c8",
+    flavors: ["Silky", "Mild Chocolate", "No Bitterness", "Floral", "Walnut", "Clean Finish"],
+    brew: ["Pour Over", "Drip", "French Press"],
+    story: "Rising to 2,256 metres in eastern Jamaica, the Blue Mountains are shrouded almost perpetually in cloud and mist — a natural blessing that slows coffee bean maturation to extraordinary lengths. The coffee earned protected designation status in 1953, making it one of the world's first geographically protected agricultural products. Japan, captivated by its legendary smoothness, imports up to 80% of all production, driving prices to extraordinary levels. The steep, misty terrain, combined with volcanic blue-tinged soil rich in minerals, produces a cup of uncanny balance — almost no bitterness, a silky body, and a clean, lingering sweetness that made it the preferred cup of Ian Fleming, who wrote the James Bond novels at his Jamaican estate, GoldenEye.",
+    processing: "Beans are hand-picked from treacherous slopes and wet-processed at registered pulperies. The beans are then dried under the mist — a notoriously slow process — before being sorted and packed in traditional wooden barrels (rather than burlap sacks), one of the variety's most distinctive quirks."
+  },
+  {
+    id: 4,
+    name: "Kona Extra Fancy",
+    subtitle: "Hawaii's Volcanic Gift",
+    origin: "Kona, Hawaii, USA",
+    region: "Pacific",
+    altitude: "600–900m",
+    process: "Washed",
+    roast: "Medium",
+    roastPct: 50,
+    harvest: "August – January",
+    gradient: "linear-gradient(135deg, #3d1500 0%, #6b2800 40%, #260e00 100%)",
+    accent: "#e07830",
+    flavors: ["Macadamia Nut", "Dark Caramel", "Brown Butter", "Mild Spice", "Sweet Wine"],
+    brew: ["Drip", "French Press", "Espresso", "Pour Over"],
+    story: "On the western slopes of the dormant Mauna Loa and Hualalai volcanoes, Kona's 'coffee belt' stretches just 30 miles long and 2 miles wide — making it one of the smallest premium coffee-growing regions on earth. The lava-enriched, mineral-rich soil, afternoon cloud cover that shields beans from harsh afternoon sun, and the consistent Pacific climate create conditions that have produced coveted coffee since American missionaries first planted seeds in the 1820s. 'Extra Fancy' is the highest grade designation, reserved for the largest, most perfect beans with zero defects. The combination of scarcity and exceptional quality has made authentic Kona coffee among the most counterfeited in the world.",
+    processing: "Small family farms pick the cherry by hand over multiple passes as different berries ripen throughout the season. Wet-processing is standard: cherries are pulped the day of harvest to prevent fermentation, then washed and dried on open-air platforms under the Hawaiian sun — sometimes for weeks."
+  },
+  {
+    id: 5,
+    name: "Sumatra Mandheling",
+    subtitle: "The Island Giant",
+    origin: "West Sumatra, Indonesia",
+    region: "Southeast Asia",
+    altitude: "750–1,500m",
+    process: "Wet-Hulled (Giling Basah)",
+    roast: "Dark",
+    roastPct: 85,
+    harvest: "April – June, Oct – Dec",
+    gradient: "linear-gradient(135deg, #1a0d2d 0%, #2d1a4a 40%, #0d0618 100%)",
+    accent: "#8b5cf6",
+    flavors: ["Dark Chocolate", "Cedar", "Tobacco", "Earthy", "Mushroom", "Black Tea"],
+    brew: ["French Press", "Moka Pot", "Espresso", "Cold Brew"],
+    story: "The Minangkabau people of West Sumatra have cultivated coffee in their highland villages since Dutch colonists introduced Arabica plants in the 17th century. The name 'Mandheling' actually refers to the Mandailing people — a tribal group from North Sumatra whose name Dutch traders mistakenly applied to coffee bought from port traders. The region's volcanic soil, tropical humidity, and unique processing method produce a coffee that defies all conventions of origin flavor. Where other origins emphasize brightness and delicacy, Sumatran coffees plunge deep — earthy, full-bodied, brooding, with a tobacco-like depth that polarizes coffee lovers into those who are repelled and those who are devotees.",
+    processing: "Mandheling's signature is the wet-hulling process (Giling Basah), unique to Indonesia. Unlike standard washed processing, the parchment is removed from beans while they are still 50% moist — far earlier than elsewhere. This produces the characteristic blue-green color of raw Sumatran beans and the uniquely heavy, earthy character."
+  },
+  {
+    id: 6,
+    name: "Yemen Mocha",
+    subtitle: "The Ancient Origin",
+    origin: "Haraz Mountains, Yemen",
+    region: "Arabian Peninsula",
+    altitude: "1,000–2,500m",
+    process: "Natural (Sun-Dried)",
+    roast: "Medium",
+    roastPct: 55,
+    harvest: "October – February",
+    gradient: "linear-gradient(135deg, #3d2800 0%, #5a3c00 40%, #261900 100%)",
+    accent: "#d4a021",
+    flavors: ["Wild Berry", "Red Wine", "Cardamom", "Dark Fruit", "Tobacco", "Bittersweet Cacao"],
+    brew: ["Turkish", "French Press", "Pour Over", "Ibrik"],
+    story: "The Port of Mocha (Al-Mukha) on Yemen's Red Sea coast was the world's first major coffee export hub, making Yemen the origin of commercial coffee trade itself. From the 15th century, Sufi monks cultivated coffee in terrace farms carved into the jagged Haraz mountains, using it to stay awake for nocturnal prayers. When the Ottoman Turks discovered it, they spread it across the Islamic world — and eventually into Europe through Venetian traders. Today, Yemen's production is a fraction of its historic peak, threatened by conflict and water scarcity, making authentic Yemeni Mocha among the most precious and expensive coffees on earth. The isolated, ancient varieties grown here are direct ancestors of all commercial coffee.",
+    processing: "Yemeni coffee is entirely sun-dried in the whole cherry — a natural process by necessity, as the arid climate and scarce water make wet-processing impractical. Cherries dry for weeks on flat rooftop terraces, concentrating sugars into intense, wine-like complexity. The thin-walled, aged structures of these farms have remained largely unchanged for five centuries."
+  },
+  {
+    id: 7,
+    name: "Guatemalan Antigua",
+    subtitle: "Volcanic Perfection",
+    origin: "Antigua Valley, Guatemala",
+    region: "Central America",
+    altitude: "1,500–1,700m",
+    process: "Washed",
+    roast: "Medium-Dark",
+    roastPct: 65,
+    harvest: "January – March",
+    gradient: "linear-gradient(135deg, #2d0a1a 0%, #4a1530 40%, #1a0510 100%)",
+    accent: "#e05080",
+    flavors: ["Dark Chocolate", "Smoky", "Spice", "Brown Sugar", "Dried Cherry", "Cocoa Powder"],
+    brew: ["Espresso", "Drip", "French Press", "Moka Pot"],
+    story: "Nestled between three towering volcanoes — Agua, Fuego, and Acatenango — the Antigua Valley's combination of rich volcanic soil, predictable dry season, and dramatic temperature swings between day and night creates one of the world's most distinctive growing environments. The volcán Fuego still occasionally erupts, continuously renewing the mineral content of the soil. Antigua received its Geographical Indication protection in 2000, restricting the name's use to coffees grown within the designated valley zone. The colonial city of Antigua itself was the Spanish colonial capital of Central America — and coffee was grown here for centuries on the great haciendas that surrounded it.",
+    processing: "Antigua coffees are typically fully washed: ripe cherries are pulped, fermented in tanks for 24–36 hours, then washed clean and dried on patios. The long dry season and ample sunshine create ideal drying conditions, producing a cup noted for its consistent, deep chocolatey character."
+  },
+  {
+    id: 8,
+    name: "Kenya AA",
+    subtitle: "The Bright Star",
+    origin: "Central Highlands, Kenya",
+    region: "East Africa",
+    altitude: "1,400–2,000m",
+    process: "Washed (Double)",
+    roast: "Light-Medium",
+    roastPct: 30,
+    harvest: "October – December (Main)",
+    gradient: "linear-gradient(135deg, #1a1a00 0%, #3d3d00 40%, #262600 100%)",
+    accent: "#d4c021",
+    flavors: ["Blackcurrant", "Tomato", "Grapefruit", "Red Wine", "Juicy Acidity", "Bergamot"],
+    brew: ["Pour Over", "AeroPress", "Chemex", "Cold Brew"],
+    story: "Kenya's 'AA' designation refers to the largest screen size (17+) in its unique grading system, but it also signals the country's extraordinary quality-control infrastructure. Unlike most coffee-growing nations, Kenya runs a centralized auction system through the Nairobi Coffee Exchange where top grades command premium prices, incentivizing quality at every stage. Kenya's SL28 and SL34 cultivars — selected in the 1930s by Scott Agricultural Laboratories — are unique genetic varieties known for exceptional fruit-forward flavors found nowhere else. The combination of a double-washed processing method (where beans are fermented twice), Kenya's deep red volcanic soils rich in phosphorus, and the cooling winds from Mount Kenya create coffees of staggering complexity.",
+    processing: "Kenya's 'double wash' (or 'Kenya wash') is distinctive: after initial pulping and fermentation, beans are washed, then soaked overnight in clean water before a final wash. This double-soak method is believed to enhance the coffee's characteristic brightness and fruit-forward complexity."
+  },
+  {
+    id: 9,
+    name: "Tanzanian Peaberry",
+    subtitle: "The Lone Bean",
+    origin: "Mount Kilimanjaro, Tanzania",
+    region: "East Africa",
+    altitude: "1,400–1,800m",
+    process: "Washed",
+    roast: "Medium",
+    roastPct: 48,
+    harvest: "July – September",
+    gradient: "linear-gradient(135deg, #003d1a 0%, #005a28 40%, #002615 100%)",
+    accent: "#21d470",
+    flavors: ["Tart Cherry", "Plum", "Black Tea", "Light Citrus", "Winey", "Floral"],
+    brew: ["Pour Over", "French Press", "AeroPress"],
+    story: "A peaberry is a naturally occurring genetic mutation where only one seed develops inside the coffee cherry instead of the usual two. Since the single seed receives all the nutrients meant for two, peaberries are denser, rounder, and believed by many to be more flavorful than flat beans. They constitute roughly 5% of any harvest and must be separated by hand or machine. Tanzanian peaberries from the slopes of Mount Kilimanjaro — the world's highest freestanding mountain — carry the volcanic minerals of Africa's rooftop. The contrast of proximity to equatorial sun and high-altitude cold slows bean development to produce concentrated, winey cups with bright East African acidity.",
+    processing: "Peaberries are first separated from flat beans through density sorting, then wet-processed using the washed method: pulped, fermented for 36–48 hours, washed on washing stations, and dried on raised African beds. The rounder shape means they roast slightly more evenly than flat beans."
+  },
+  {
+    id: 10,
+    name: "Vietnamese Robusta",
+    subtitle: "The Dark Horse",
+    origin: "Central Highlands, Vietnam",
+    region: "Southeast Asia",
+    altitude: "500–800m",
+    process: "Natural / Dry",
+    roast: "Dark",
+    roastPct: 90,
+    harvest: "November – April",
+    gradient: "linear-gradient(135deg, #1a0000 0%, #3d0000 40%, #260000 100%)",
+    accent: "#e03030",
+    flavors: ["Strong Bitter", "Rubber", "Woody", "Dark Chocolate", "Peanut", "Heavy Body"],
+    brew: ["Vietnamese Drip (Phin)", "Espresso", "Cold Brew", "Milk Coffee"],
+    story: "Vietnam is the world's second-largest coffee producer, nearly all of which is Coffea canephora (Robusta) — a different species from the Arabica varieties that dominate specialty markets. Introduced by French colonists in 1857, coffee cultivation exploded in the 1980s when the Vietnamese government encouraged farmers to convert land in the Buon Ma Thuot highlands. Robusta contains nearly double the caffeine of Arabica and is famous for producing the uniquely Vietnamese café sua da — strong dark Robusta dripped through a phin filter over ice, mixed with sweetened condensed milk. The bold, uncompromising bitterness of Vietnamese Robusta is not a flaw but a feature — the foundation of one of the world's most beloved coffee cultures.",
+    processing: "Vietnamese Robusta is typically dry-processed: whole cherries are dried on patios in the highland sun. The robust nature of Robusta plants (they can grow at lower altitudes and withstand disease far better than Arabica) allows high-density cultivation. Beans are often stored for months before processing."
+  },
+  {
+    id: 11,
+    name: "Panama Geisha",
+    subtitle: "The Auction Record",
+    origin: "Boquete, Chiriquí, Panama",
+    region: "Central America",
+    altitude: "1,600–1,800m",
+    process: "Washed / Natural",
+    roast: "Light",
+    roastPct: 20,
+    harvest: "February – April",
+    gradient: "linear-gradient(135deg, #001a1a 0%, #002d2d 40%, #000d0d 100%)",
+    accent: "#21c8c8",
+    flavors: ["Jasmine", "Rose", "Peach", "Tropical Fruit", "Earl Grey", "Honey"],
+    brew: ["Pour Over", "Chemex", "AeroPress"],
+    story: "The Geisha (also spelled Gesha) variety was originally collected from the Gesha forest in southwestern Ethiopia in the 1930s and brought to Central America as a disease-resistant experiment. It sat largely forgotten in breeding programs for decades until the Peterson family at Hacienda La Esmeralda in Boquete, Panama, entered it in the 2004 Best of Panama competition — and shattered every known flavor benchmark. Buyers bid to astronomical levels. In 2021, a washed Geisha from La Esmeralda sold for $1,029 per pound at auction, the highest price ever paid for coffee. Its extraordinary floral complexity — more reminiscent of fine tea or perfume than conventional coffee — has made it the most discussed and sought-after coffee variety in the world.",
+    processing: "Washed Geisha emphasizes clarity and floral brightness, while natural-processed Geisha adds tropical fruit intensity. Both demand meticulous hand-sorting. At Hacienda La Esmeralda, each tree is individually tagged, and cherries from selected trees are kept separate all the way through drying and sorting — a level of traceability unprecedented in coffee production."
+  },
+  {
+    id: 12,
+    name: "Hawaiian Maui Mokka",
+    subtitle: "The Miniature Jewel",
+    origin: "Kula, Maui, Hawaii",
+    region: "Pacific",
+    altitude: "600–1,000m",
+    process: "Washed",
+    roast: "Medium",
+    roastPct: 45,
+    harvest: "October – March",
+    gradient: "linear-gradient(135deg, #1a001a 0%, #3d003d 40%, #260026 100%)",
+    accent: "#c821c8",
+    flavors: ["Dark Chocolate", "Mocha", "Berry", "Honey", "Subtle Fruit", "Lingering Sweetness"],
+    brew: ["Espresso", "Pour Over", "French Press"],
+    story: "The Maui Mokka is one of the rarest coffee varieties in existence — a true dwarf Arabica cultivar producing tiny, pea-sized beans with an unusually high concentration of aromatic oils. Descended from the original Mocha coffee of Yemen, it was brought to Hawaii and found its perfect expression in the volcanic, iron-rich soils of Maui's upcountry slopes. Only a handful of farms cultivate it commercially, and production quantities are tiny — sometimes just a few thousand pounds per season. What Maui Mokka lacks in size it compensates in intensity: each small bean is packed with dense, chocolate-forward character with a subtle fruity undertone that makes it unlike any other Hawaiian coffee.",
+    processing: "The dwarf trees are harvested by hand — essential given the steep slopes and selective ripening patterns. The small cherries are wet-processed immediately after picking, fermented for 24 hours, then washed and dried on raised beds. The small bean size requires careful attention during roasting to avoid scorching."
+  }
+];
+
+// Color palettes for card backgrounds (CSS gradients + SVG patterns)
+const cardColors = [
+  { bg: "#3d1f00", mid: "#5a3010" },
+  { bg: "#1a3d1a", mid: "#2d5a20" },
+  { bg: "#001a3d", mid: "#002d55" },
+  { bg: "#3d1500", mid: "#6b2800" },
+  { bg: "#1a0d2d", mid: "#2d1848" },
+  { bg: "#3d2800", mid: "#5a3c00" },
+  { bg: "#2d0a1a", mid: "#4a1530" },
+  { bg: "#1a1a00", mid: "#3a3a00" },
+  { bg: "#003d1a", mid: "#005a25" },
+  { bg: "#1a0000", mid: "#3a0808" },
+  { bg: "#001a1a", mid: "#003030" },
+  { bg: "#1a001a", mid: "#350035" },
+];
+
+function buildGrid() {
+  const grid = document.getElementById('coffeeGrid');
+  coffees.forEach((c, i) => {
+    const col = cardColors[i % cardColors.length];
+    const card = document.createElement('div');
+    card.className = 'coffee-card';
+    card.onclick = () => openModal(c);
+
+    // SVG bean pattern
+    const svgPattern = `<svg class="bean-pattern" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+      ${Array.from({length:8}, (_,row) => Array.from({length:6}, (_,col2) => {
+        const x = col2*35 + (row%2)*17;
+        const y = row*28;
+        return `<ellipse cx="${x}" cy="${y}" rx="7" ry="11" fill="${c.accent}" transform="rotate(${-20+col2*8},${x},${y})"/>
+                <line x1="${x}" y1="${y-11}" x2="${x}" y2="${y+11}" stroke="#000" stroke-width="0.8" opacity="0.3"/>`;
+      }).join('')).join('')}
+    </svg>`;
+
+    card.innerHTML = `
+      <div class="card-bg" style="background: radial-gradient(ellipse at 40% 30%, ${col.mid} 0%, ${col.bg} 70%)"></div>
+      <div class="coffee-visual">${svgPattern}</div>
+      <div class="card-gradient"></div>
+      <div class="card-content">
+        <p class="card-origin">${c.origin}</p>
+        <h3 class="card-name">${c.name}</h3>
+        <p class="card-tagline">${c.subtitle}</p>
+        <div class="card-meta">
+          <span class="meta-pill">${c.roast}</span>
+          <span class="meta-pill">${c.process.split(' ')[0]}</span>
+        </div>
+        <div class="card-cta"><span class="cta-line"></span>Explore</div>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function openModal(c) {
+  const overlay = document.getElementById('modalOverlay');
+  const modal = document.getElementById('modal');
+
+  // Hero background
+  const heroEl = document.getElementById('modalHero');
+  heroEl.style.background = c.gradient;
+  // SVG art in modal hero
+  heroEl.innerHTML = `
+    <div class="modal-hero-gradient"></div>
+    <svg viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;width:100%;height:100%;opacity:0.2">
+      ${Array.from({length:20}, (_,i) => {
+        const x = 30+i*45+Math.sin(i)*15;
+        const y = 50+Math.cos(i*1.3)*80;
+        return `<ellipse cx="${x}" cy="${y}" rx="${10+Math.sin(i)*5}" ry="${16+Math.cos(i)*8}" fill="${c.accent}" transform="rotate(${-30+i*12},${x},${y})"/>
+                <line x1="${x}" y1="${y-16}" x2="${x}" y2="${y+16}" stroke="#000" stroke-width="1.5" opacity="0.4"/>`;
+      }).join('')}
+    </svg>
+    <div style="position:absolute;bottom:2rem;left:3rem;z-index:3;display:flex;gap:1rem;align-items:center">
+      <div style="width:8px;height:8px;border-radius:50%;background:${c.accent};box-shadow:0 0 20px ${c.accent}"></div>
+      <span style="font-size:0.65rem;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.5)">${c.region}</span>
+    </div>
+  `;
+
+  document.getElementById('modalOrigin').textContent = `📍 ${c.origin}`;
+  document.getElementById('modalTitle').textContent = c.name;
+  document.getElementById('modalSubtitle').textContent = c.subtitle;
+
+  // Specs
+  const specs = [
+    { label: 'Altitude', value: c.altitude },
+    { label: 'Process', value: c.process },
+    { label: 'Roast', value: c.roast },
+    { label: 'Harvest', value: c.harvest },
+  ];
+  document.getElementById('modalSpecs').innerHTML = specs.map(s => `
+    <div class="spec-item">
+      <div class="spec-label">${s.label}</div>
+      <div class="spec-value">${s.value}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('modalStory').textContent = c.story;
+
+  document.getElementById('modalFlavors').innerHTML = c.flavors.map(f =>
+    `<span class="flavor-tag">${f}</span>`
+  ).join('');
+
+  document.getElementById('modalBrew').innerHTML = c.brew.map(b =>
+    `<div class="brew-method"><div class="brew-dot"></div>${b}</div>`
+  ).join('');
+
+  document.getElementById('modalProcess').textContent = c.processing;
+
+  // Animate roast bar
+  const roastFill = document.getElementById('roastFill');
+  roastFill.style.width = '0%';
+
+  overlay.classList.add('open');
+  modal.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+
+  // Delay roast bar animation
+  setTimeout(() => {
+    roastFill.style.width = c.roastPct + '%';
+  }, 300);
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModalDirect();
+}
+
+function closeModalDirect() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModalDirect();
+});
+
+buildGrid();
+</script>
+</body>
+</html>
