@@ -12,7 +12,7 @@ pipeline {
         // Uncomment based on your project
         // nodejs "NodeJS"
         // maven "Maven"
-        // jdk "JDK17"
+         jdk "JDK17"
     }
 
     stages {
