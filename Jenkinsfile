@@ -5,7 +5,8 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git 'https://github.com/PavanSai845/coffee-shop.git'
+                git branch: 'main',
+    url: 'https://github.com/PavanSai845/coffee-shop.git'
             }
         }
 
