@@ -5,7 +5,7 @@ pipeline {
         // Change these as per your setup
         APP_NAME = "my-app"
         DOCKER_IMAGE = "myrepo/my-app"
-        GIT_REPO = "https://github.com/your-username/your-repo.git"
+        GIT_REPO = "https://github.com/PavanSai845/coffee-shop.git"
     }
 
     tools {
