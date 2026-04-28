@@ -1,121 +1,51 @@
 pipeline {
     agent any
 
-    environment {
-        // Change these as per your setup
-        APP_NAME = "my-app"
-        DOCKER_IMAGE = "myrepo/my-app"
-        GIT_REPO = "https://github.com/PavanSai845/coffee-shop.git"
-    }
-
-    tools {
-        // Uncomment based on your project
-        // nodejs "NodeJS"
-        // maven "Maven"
-         jdk "JDK17"
-    }
-
     stages {
 
-        stage('Checkout Code') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: "${GIT_REPO}"
+                git 'https://github.com/your-username/your-repo.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Validate Files') {
             steps {
-                script {
-                    if (fileExists('package.json')) {
-                        sh 'npm install'
-                    } else if (fileExists('pom.xml')) {
-                        sh 'mvn clean install -DskipTests'
-                    } else if (fileExists('requirements.txt')) {
-                        sh 'pip install -r requirements.txt'
-                    } else {
-                        echo "No dependency file found"
-                    }
-                }
+                sh '''
+                if [ ! -f index.html ]; then
+                  echo "❌ index.html not found"
+                  exit 1
+                fi
+                echo "✅ index.html found"
+                '''
             }
         }
 
-        stage('Run Tests') {
+        stage('Basic HTML Check') {
             steps {
-                script {
-                    if (fileExists('package.json')) {
-                        sh 'npm test || true'
-                    } else if (fileExists('pom.xml')) {
-                        sh 'mvn test'
-                    } else if (fileExists('requirements.txt')) {
-                        sh 'pytest || true'
-                    } else {
-                        echo "No tests configured"
-                    }
-                }
+                sh '''
+                echo "Checking HTML structure..."
+                grep -q "<html" index.html || (echo "❌ Missing <html> tag" && exit 1)
+                grep -q "<head" index.html || (echo "❌ Missing <head> tag" && exit 1)
+                grep -q "<body" index.html || (echo "❌ Missing <body> tag" && exit 1)
+                echo "✅ Basic HTML structure looks fine"
+                '''
             }
         }
 
-        stage('Build') {
+        stage('List Files') {
             steps {
-                script {
-                    if (fileExists('package.json')) {
-                        sh 'npm run build || true'
-                    } else if (fileExists('pom.xml')) {
-                        sh 'mvn package'
-                    } else {
-                        echo "Nothing to build"
-                    }
-                }
-            }
-        }
-
-        stage('Docker Build') {
-            when {
-                expression { fileExists('Dockerfile') }
-            }
-            steps {
-                sh "docker build -t ${DOCKER_IMAGE}:latest ."
-            }
-        }
-
-        stage('Docker Push') {
-            when {
-                expression { fileExists('Dockerfile') }
-            }
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: 'docker-creds',
-                    usernameVariable: 'USER',
-                    passwordVariable: 'PASS'
-                )]) {
-                    sh """
-                    echo $PASS | docker login -u $USER --password-stdin
-                    docker tag ${DOCKER_IMAGE}:latest ${DOCKER_IMAGE}:${BUILD_NUMBER}
-                    docker push ${DOCKER_IMAGE}:${BUILD_NUMBER}
-                    """
-                }
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                echo "Deploy stage (customize this)"
-                // Example:
-                // sh "kubectl apply -f k8s/"
-                // or SSH deploy
+                sh 'ls -l'
             }
         }
     }
 
     post {
         success {
-            echo "✅ Build Success"
+            echo "✅ HTML project validation successful"
         }
         failure {
-            echo "❌ Build Failed"
-        }
-        always {
-            cleanWs()
+            echo "❌ Validation failed"
         }
     }
 }
