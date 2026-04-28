@@ -12,11 +12,11 @@ pipeline {
         stage('Validate Files') {
             steps {
                 sh '''
-                if [ ! -f index.html ]; then
-                  echo "❌ index.html not found"
+                if [ ! -f coffeewebsite.html ]; then
+                  echo "❌ coffeewebsite.html not found"
                   exit 1
                 fi
-                echo "✅ index.html found"
+                echo "✅ coffeewebsite.html found"
                 '''
             }
         }
@@ -25,9 +25,9 @@ pipeline {
             steps {
                 sh '''
                 echo "Checking HTML structure..."
-                grep -q "<html" index.html || (echo "❌ Missing <html> tag" && exit 1)
-                grep -q "<head" index.html || (echo "❌ Missing <head> tag" && exit 1)
-                grep -q "<body" index.html || (echo "❌ Missing <body> tag" && exit 1)
+                grep -q "<html" coffeewebsite.html || (echo "❌ Missing <html> tag" && exit 1)
+                grep -q "<head" coffeewebsite.html || (echo "❌ Missing <head> tag" && exit 1)
+                grep -q "<body" coffeewebsite.html || (echo "❌ Missing <body> tag" && exit 1)
                 echo "✅ Basic HTML structure looks fine"
                 '''
             }
